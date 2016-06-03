@@ -1,0 +1,7 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 [\{"id":"9aa9bf6a.3dda9","type":"ibmiot in","z":"72514606.0a15c8","authentication":"quickstart","apiKey":"","inputType":"evt","deviceId":"a0e6f8b6b084","applicationId":"","deviceType":"+","eventType":"+","commandType":"","format":"json","name":"IBM IoT","service":"quickstart","allDevices":"","allApplications":"","allDeviceTypes":true,"allEvents":true,"allCommands":"","allFormats":"","x":143.5,"y":237,"wires":[["47c84624.e79d78"]]\},\{"id":"bcead39.22baf3","type":"file","z":"72514606.0a15c8","name":"","filename":"Derail(RAMP)-(Chekpoint 4):Trial-10","appendNewline":false,"createDir":false,"overwriteFile":"false","x":597.2500076293945,"y":233.25000381469727,"wires":[]\},\{"id":"47c84624.e79d78","type":"function","z":"72514606.0a15c8","name":"","func":"\\n msg.payload.d.time = Math.floor(Date.now() / 1000);\\n\\nreturn msg;","outputs":1,"noerr":0,"x":291.875,"y":302.50000381469727,"wires":[["bcead39.22baf3","c9a0abbd.cbe718"]]\},\{"id":"c9a0abbd.cbe718","type":"debug","z":"72514606.0a15c8","name":"","active":true,"console":"false","complete":"false","x":559.375,"y":476.25,"wires":[]\}]}
