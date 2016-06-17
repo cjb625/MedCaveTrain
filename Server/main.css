@@ -1,0 +1,51 @@
+html
+{
+    background-color: ghostwhite;
+    
+}
+#disp
+{
+    align-content: center;
+    text-align: center;
+    display: block;
+    width: 100%;
+   font-size: 64px;
+    
+}
+#forwardBlock
+{
+    display:inline-block;
+    width: 25%;
+    text-align: center;
+    align-content: center;
+    
+}
+#reverseBlock
+{
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    align-content: center;
+}
+#brakeBlock
+{
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+    align-content: center;
+}
+
+#buttonBlock
+{
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    align-content: center;
+    
+}
+.abc
+{
+    margin-bottom: 4px;
+    margin-left: 20px;
+    width: 140px;
+}
