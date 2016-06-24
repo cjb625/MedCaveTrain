@@ -1,50 +1,60 @@
+// Initializing Global Variables
+
 const int BellPin = 9;
 const int TalkPin = 10;
 const int WhistlePin = 11;
-String T = "T";
+String T = "T";               
 String W = "W";
 String B = "B";
 String R = "R";
 String S = "S";
 String F = "F";
 int SpeedIntFix;
-
-#include <SPI.h>
-#include <Adafruit_WINC1500.h>
-
-#define WINC_CS   8
-#define WINC_IRQ  7
-#define WINC_RST  4
-#define WINC_EN   2
-
-Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
-
-char ssid[] = "SM-N920PBA2";      //  your network SSID (name)
-char pass[] = "wabtech1";   // your network password
-
-int status = WL_IDLE_STATUS;
-Adafruit_WINC1500Server server(80);
-
 String Button = "";
 String Speed = "";
 int SpeedInt = 0;
 int hold = 0;
 
+// Adding libraries
+
+#include <SPI.h>
+#include <Adafruit_WINC1500.h>
+
+// Defining library reserved variables as Pins on FeatherBoard M0 WiFi
+
+#define WINC_CS   8
+#define WINC_IRQ  7
+#define WINC_RST  4
+#define WINC_EN   2
 const int slaveSelectPin = 13;
+
+// Initializing WiFi Module on FeatherBoard
+
+Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
+
+// Connecting to the Access Point
+
+char ssid[] = "SSID";      //  your network SSID (name)
+char pass[] = "password";   // your network password
+
+int status = WL_IDLE_STATUS;
+Adafruit_WINC1500Server server(80);
 
 void setup() {
   #ifdef WINC_EN
     pinMode(WINC_EN, OUTPUT);
     digitalWrite(WINC_EN, HIGH);
   #endif
-  
-    Serial.begin(9600);      // initialize serial communication
+
+  // initialize serial communication
+    Serial.begin(9600); 
     pinMode(WhistlePin,OUTPUT);
     digitalWrite(WhistlePin, HIGH);
     pinMode(BellPin,OUTPUT);
     digitalWrite(BellPin, HIGH);
     pinMode(TalkPin,OUTPUT);
     digitalWrite(TalkPin, HIGH);
+    
     // check for the presence of the shield:
     if (WiFi.status() == WL_NO_SHIELD) {
       Serial.println("WiFi shield not present");
@@ -142,7 +152,7 @@ void loop() {
       }
       else if(Button==R){
         SpeedIntFix = (64*SpeedInt)/100 + 64;
-        digitalPotWrite(0,SpeedInt);
+        digitalPotWrite(0,SpeedIntFix);
       }
       else if(Button==S){
         digitalPotWrite(0,64);
