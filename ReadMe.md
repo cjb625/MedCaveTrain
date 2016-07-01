@@ -1,4 +1,4 @@
-All services are hosted on an Azure VM
+All services are hosted on an Azure VM \n
 Services hosted:
   MQTT
     install command: sudo apt-get install mosquitto
