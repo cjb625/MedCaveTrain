@@ -8,10 +8,8 @@ for (i in 1:50) {
   
   #Sections pulls incomplete data from sensor tag and discards incomplete light data adn completes json string
   
-  htmlData<- getURL("http://ti-tag.mybluemix.net/api/tidata")
-  htmlData = paste(rev(substring(htmlData,1:nchar(htmlData),1:nchar(htmlData))),collapse="")
-  htmlData = paste(rev(substring(htmlData,regexpr(',',htmlData)[1]+1:nchar(htmlData),regexpr(',',htmlData)[1]+1:nchar(htmlData))),collapse="")
-  htmlData = paste(htmlData,',"iteration":"0","Derail":"0"}')
+  htmlData<- getURL("http://40.76.0.47:1880/data")
+  htmlData = paste(substr(htmlData,0,nchar(htmlData)),',"iteration":"0","Derail":"0"}')
   jsonCollectedData <- fromJSON(htmlData)
   msg <- jsonCollectedData[6:16]
   
