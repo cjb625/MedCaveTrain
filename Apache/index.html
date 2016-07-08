@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+        <link type="text/css" rel="stylesheet" href="main.css"/>
+       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+    <script src="jquery.knob.min.js"></script>
+    <script src="train.js"></script>
+    <script>
+        $(function($) {
+
+            $(".knob").knob({
+                change : function (value) {
+                    //console.log("change : " + value);
+                },
+                release : function (value) {
+                    //console.log(this.$.attr('value'));
+                    console.log("release : " + value);
+                },
+                cancel : function () {
+                    console.log("cancel : ", this);
+                },
+                /*format : function (value) {
+                 return value + '%';
+                 },*/
+                draw : function () {
+
+                    // "tron" case
+                    if(this.$.data('skin') == 'tron') {
+
+                        this.cursorExt = 0.3;
+
+                        var a = this.arc(this.cv)  // Arc
+                                , pa                   // Previous arc
+                                , r = 1;
+
+                        this.g.lineWidth = this.lineWidth;
+
+                        if (this.o.displayPrevious) {
+                            pa = this.arc(this.v);
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.pColor;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                            this.g.stroke();
+                        }
+
+                        this.g.beginPath();
+                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+                        this.g.stroke();
+
+                        this.g.lineWidth = 2;
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.o.fgColor;
+                        this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                        this.g.stroke();
+
+                        return false;
+                    }
+                }
+            });
+
+            // Example of infinite knob, iPod click wheel
+            var v, up=0,down=0,i=0
+                    ,$idir = $("div.idir")
+                    ,$ival = $("div.ival")
+                    ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+                    ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+            $("input.infinite").knob(
+                    {
+                        min : 0
+                        , max : 20
+                        , stopper : false
+                        , change : function () {
+                        if(v > this.cv){
+                            if(up){
+                                decr();
+                                up=0;
+                            }else{up=1;down=0;}
+                        } else {
+                            if(v < this.cv){
+                                if(down){
+                                    incr();
+                                    down=0;
+                                }else{down=1;up=0;}
+                            }
+                        }
+                        v = this.cv;
+                    }
+                    });
+        });
+    </script> 
+	</head>
+	<body>
+        <div style="display:block;text-align:center;font-size:40px"><h1>APTC</h1></div>
+        <div style="display:inline-block;float:left">
+        <div style="text-align:center"><p id="currentDirection">Direction: Stopped</p><p id="currentSpeed">Speed: 0</p></div>
+        <div><input id="knob1" type="text" class="knob" value="0" class="dial"></div>
+        <div style="margin-left:18px">
+            <canvas style="height:40px;width:40px;background-color:#b3e0ff;" id="buttonR"></canvas>
+            <canvas style="height:40px;width:80px;background-color:#ff4d4d;" id="buttonS"></canvas>
+            <canvas style="height:40px;width:40px;background-color:#b3ffda;" id="buttonF"></canvas>
+        </div>
+        <div style="padding:10px 10px;">
+            <canvas class="abc" style="display:block;border:2px black solid;height:40px;background-color:#bf00ff" id="buttonW"></canvas>
+            <canvas class="abc" style="display:block;border:2px black solid;height:40px;background-color:#bf00ff" id="buttonT"></canvas>
+            <canvas class="abc" style="display:block;border:2px black solid;height:40px;background-color:#bf00ff" id="buttonB"></canvas>
+        </div>
+       </div> 
+        <div style="display:inline-block;margin-left:100px">
+        <iframe width="1000" height="600" src="http://40.76.0.47/freeboard" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+    </body>
+
+    <script>
+        var canvas = document.getElementById("buttonF");
+var ctx = canvas.getContext("2d");
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+
+ctx.fillStyle = "black";
+
+       
+ctx.font = "100px Comic Sans MS";
+ctx.textAlign = "center";
+ctx.fillText("F", canvas.width/2, canvas.height/2+30); 
+
+        var canvas = document.getElementById("buttonR");
+var ctx = canvas.getContext("2d");
+ctx.font = "100px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("R", canvas.width/2, canvas.height/2+30); 
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"blue");
+grd.addColorStop(1,"white");
+        
+        var canvas = document.getElementById("buttonS");
+var ctx = canvas.getContext("2d");
+ctx.font = "100px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Brake", canvas.width/2, canvas.height/2+30); 
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+        
+   var canvas = document.getElementById("buttonW");
+var ctx = canvas.getContext("2d");
+ctx.font = "80px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Whistle", canvas.width/2, canvas.height/2+30); 
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+        
+        var canvas = document.getElementById("buttonT");
+var ctx = canvas.getContext("2d");
+ctx.font = "80px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Talk", canvas.width/2, canvas.height/2+30); 
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+        
+        
+        var canvas = document.getElementById("buttonB");
+var ctx = canvas.getContext("2d");
+ctx.font = "80px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Bell", canvas.width/2, canvas.height/2+30); 
+var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+        
+        
+    </script>
+	
+</html>
