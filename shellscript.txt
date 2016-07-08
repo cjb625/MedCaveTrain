@@ -1,3 +1,4 @@
+sudo apt-get update
 sudo apt-get install mosquitto
 sudo apt-get install rstudio-server
 sudo apt-get install apache2
